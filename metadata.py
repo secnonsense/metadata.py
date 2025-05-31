@@ -21,6 +21,7 @@ import PyPDF2
 import docx # For .docx files
 import openpyxl # For .xlsx files
 from pptx import Presentation # For .pptx files
+import time
 
 class FileMetadataExtractor:
     def __init__(self, master):
@@ -163,9 +164,9 @@ class FileMetadataExtractor:
         try:
             stat_info = os.stat(filepath)
             general_meta["File Size"] = f"{stat_info.st_size / (1024 * 1024):.2f} MB ({stat_info.st_size} bytes)"
-            general_meta["Creation Time"] = f"{os.path.ctime(stat_info.st_ctime)}"
-            general_meta["Modification Time"] = f"{os.path.ctime(stat_info.st_mtime)}"
-            general_meta["Last Access Time"] = f"{os.path.ctime(stat_info.st_atime)}"
+            general_meta["Creation Time"] = f"{time.ctime(stat_info.st_ctime)}"
+            general_meta["Modification Time"] = f"{time.ctime(stat_info.st_mtime)}"
+            general_meta["Last Access Time"] = f"{time.ctime(stat_info.st_atime)}"
             general_meta["Owner UID"] = stat_info.st_uid
             general_meta["Group GID"] = stat_info.st_gid
             general_meta["Permissions"] = oct(stat_info.st_mode & 0o777)
